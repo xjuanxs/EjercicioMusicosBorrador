@@ -1,0 +1,25 @@
+@startuml
+
+participant Client
+participant "RandomBandGenerator" as RBG
+participant "RandomMusicianFactory" as RMF
+participant "Band" as B
+participant "Musician" as M
+
+Client -> RBG : generateBand()
+activate RBG
+RBG -> RMF : createMusician()
+activate RMF
+loop 1 a 10 
+  RMF -> M : return Musician
+  RMF -> M : assignRandomInstrument(M)
+  RBG -> B : addMusician(M)
+end
+deactivate RMF
+RBG -> Client : return Band
+deactivate RBG
+
+Client -> B : playBand()
+B -> M : play()
+
+@enduml
