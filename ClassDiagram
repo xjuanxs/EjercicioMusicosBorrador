@@ -1,0 +1,48 @@
+@startuml
+
+interface Musician {
+  +play() : void
+  +getInstrument() : String
+}
+
+class Guitarist implements Musician {
+  +play() : void
+  +getInstrument() : String
+}
+
+class Drummer implements Musician {
+  +play() : void
+  +getInstrument() : String
+}
+
+class Bassist implements Musician {
+  +play() : void
+  +getInstrument() : String
+}
+
+class Band {
+  -musicians : List<Musician>
+  +addMusician(Musician m) : void
+  +playBand() : void
+}
+
+interface MusicianFactory {
+  +createMusician() : Musician
+}
+
+class RandomMusicianFactory implements MusicianFactory {
+  +createMusician() : Musician
+  +assignRandomInstrument(Musician m) : void
+}
+
+class RandomBandGenerator {
+  -factory : MusicianFactory
+  +generateBand() : Band
+}
+
+Band --> Musician : tiene
+RandomMusicianFactory --> Musician : crea
+RandomBandGenerator --> Band : genera
+RandomBandGenerator --> RandomMusicianFactory : usa
+
+@enduml
